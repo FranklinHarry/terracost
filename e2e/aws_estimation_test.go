@@ -72,11 +72,11 @@ func TestAWSEstimation(t *testing.T) {
 			Family:   "Compute Instance",
 			Location: "us-east-1",
 			Attributes: map[string]string{
-				"capacitystatus":  "Used",
-				"instanceType":    "t2.micro",
-				"tenancy":         "Shared",
-				"operatingSystem": "Linux",
-				"preInstalledSw":  "NA",
+				"CapacityStatus":    "Used",
+				"Instance Type":     "t2.micro",
+				"tenancy":           "Shared",
+				"Operating System":  "Linux",
+				"Pre Installed S/W": "NA",
 			},
 		},
 		{
@@ -86,11 +86,11 @@ func TestAWSEstimation(t *testing.T) {
 			Family:   "Compute Instance",
 			Location: "us-east-1",
 			Attributes: map[string]string{
-				"capacitystatus":  "Used",
-				"instanceType":    "t2.xlarge",
-				"tenancy":         "Shared",
-				"operatingSystem": "Linux",
-				"preInstalledSw":  "NA",
+				"CapacityStatus":    "Used",
+				"Instance Type":     "t2.xlarge",
+				"Tenancy":           "Shared",
+				"Operating System":  "Linux",
+				"Pre Installed S/W": "NA",
 			},
 		},
 		{
@@ -100,7 +100,7 @@ func TestAWSEstimation(t *testing.T) {
 			Family:   "Storage",
 			Location: "us-east-1",
 			Attributes: map[string]string{
-				"volumeApiName": "gp2",
+				"Volume API Name": "gp2",
 			},
 		},
 	}
@@ -119,7 +119,7 @@ func TestAWSEstimation(t *testing.T) {
 				Currency: "USD",
 				Value:    decimal.NewFromFloat(0.12),
 				Attributes: map[string]string{
-					"termType": "on_demand",
+					"TermType": "OnDemand",
 				},
 			},
 		},
@@ -130,7 +130,7 @@ func TestAWSEstimation(t *testing.T) {
 				Currency: "USD",
 				Value:    decimal.NewFromFloat(1.23),
 				Attributes: map[string]string{
-					"termType": "on_demand",
+					"TermType": "OnDemand",
 				},
 			},
 		},
@@ -141,7 +141,7 @@ func TestAWSEstimation(t *testing.T) {
 				Currency: "USD",
 				Value:    decimal.NewFromFloat(0.45),
 				Attributes: map[string]string{
-					"termType": "on_demand",
+					"TermType": "OnDemand",
 				},
 			},
 		},

@@ -89,7 +89,7 @@ func (v *Volume) storageComponent() query.Component {
 			Family:   util.StringPtr("Storage"),
 			Location: util.StringPtr(v.region.String()),
 			AttributeFilters: []*product.AttributeFilter{
-				{Key: "volumeApiName", Value: util.StringPtr(v.volumeType)},
+				{Key: "Volume API Name", Value: util.StringPtr(v.volumeType)},
 			},
 		},
 	}
@@ -106,8 +106,8 @@ func (v *Volume) iopsComponent() query.Component {
 			Family:   util.StringPtr("System Operation"),
 			Location: util.StringPtr(v.region.String()),
 			AttributeFilters: []*product.AttributeFilter{
-				{Key: "volumeApiName", Value: util.StringPtr(v.volumeType)},
-				{Key: "usagetype", ValueRegex: util.StringPtr("^EBS:VolumeP-IOPS")},
+				{Key: "Volume API Name", Value: util.StringPtr(v.volumeType)},
+				{Key: "usageType", ValueRegex: util.StringPtr("^EBS:VolumeP-IOPS")},
 			},
 		},
 	}

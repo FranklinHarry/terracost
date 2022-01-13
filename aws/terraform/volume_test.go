@@ -41,7 +41,7 @@ func TestVolume_Components(t *testing.T) {
 					Family:   util.StringPtr("Storage"),
 					Location: util.StringPtr("eu-west-3"),
 					AttributeFilters: []*product.AttributeFilter{
-						{Key: "volumeApiName", Value: util.StringPtr("gp2")},
+						{Key: "Volume API Name", Value: util.StringPtr("gp2")},
 					},
 				},
 			},
@@ -77,7 +77,7 @@ func TestVolume_Components(t *testing.T) {
 					Family:   util.StringPtr("Storage"),
 					Location: util.StringPtr("us-east-1"),
 					AttributeFilters: []*product.AttributeFilter{
-						{Key: "volumeApiName", Value: util.StringPtr("io2")},
+						{Key: "Volume API Name", Value: util.StringPtr("io2")},
 					},
 				},
 			},
@@ -91,8 +91,8 @@ func TestVolume_Components(t *testing.T) {
 					Family:   util.StringPtr("System Operation"),
 					Location: util.StringPtr("us-east-1"),
 					AttributeFilters: []*product.AttributeFilter{
-						{Key: "volumeApiName", Value: util.StringPtr("io2")},
-						{Key: "usagetype", ValueRegex: util.StringPtr("^EBS:VolumeP-IOPS")},
+						{Key: "Volume API Name", Value: util.StringPtr("io2")},
+						{Key: "usageType", ValueRegex: util.StringPtr("^EBS:VolumeP-IOPS")},
 					},
 				},
 			},

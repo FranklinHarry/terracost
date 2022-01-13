@@ -187,46 +187,35 @@ func readColumnPositions(values []string) map[string]int {
 	return columns
 }
 
-// columnToAttribute is a mapping from column title to the product.Product attribute name under which the value will
+// columnProductToIngest is a mapping from column title to the product.Product attribute name under which the value will
 // be stored.
-var columnToAttribute = map[field.Field]string{
-	field.UsageType:       "usagetype",
-	field.InstanceType:    "instanceType",
-	field.OperatingSystem: "operatingSystem",
-	field.PreInstalledSW:  "preInstalledSw",
-	field.CapacityStatus:  "capacitystatus",
-	field.Tenancy:         "tenancy",
-	field.VolumeAPIName:   "volumeApiName",
-	field.VolumeType:      "volumeType",
-	field.StorageMedia:    "storageMedia",
 
-	// RDS attributes
-	field.DeploymentOption: "deploymentOption",
-	field.LicenseModel:     "licenseModel",
-	field.DatabaseEdition:  "databaseEdition",
-	field.DatabaseEngine:   "databaseEngine",
+var columnProductToIngest = map[field.Field]struct{}{
+	field.CapacityStatus:  struct{}{},
+	field.Group:           struct{}{},
+	field.InstanceType:    struct{}{},
+	field.OperatingSystem: struct{}{},
+	field.PreInstalledSW:  struct{}{},
+	field.Tenancy:         struct{}{},
+	field.UsageType:       struct{}{},
+	field.VolumeAPIName:   struct{}{},
+	field.VolumeType:      struct{}{},
 
 	// ElastiCache
-	field.CacheEngine:     "cacheEngine",
-	field.StorageSnapshot: "storageSnapshot",
+	field.CacheEngine: struct{}{},
+
+	// RDS attributes
+	field.DatabaseEngine:   struct{}{},
+	field.DatabaseEdition:  struct{}{},
+	field.DeploymentOption: struct{}{},
+	field.LicenseModel:     struct{}{},
 }
 
-// columnToPriceAttribute is a mapping from column title to the price.Price attribute name under which the value will
+// columnPriceToIngest is a mapping from column title to the price.Price attribute name under which the value will
 // be stored.
-var columnToPriceAttribute = map[field.Field]string{
-	field.PriceDescription:  "description",
-	field.StartingRange:     "startingRange",
-	field.EndingRange:       "endUsageAmount",
-	field.TermLength:        "termLength",
-	field.TermType:          "termType",
-	field.TermOfferingClass: "termOfferingClass",
-	field.EffectiveDate:     "effectiveDateStart",
-}
-
-// termTypes is a mapping from the values used in the CSV file to the expected values.
-var termTypes = map[string]string{
-	"OnDemand": "on_demand",
-	"Reserved": "reserved",
+var columnPriceToIngest = map[field.Field]struct{}{
+	field.StartingRange: struct{}{},
+	field.TermType:      struct{}{},
 }
 
 func newPriceWithProduct(values map[field.Field]string) (*price.WithProduct, error) {
@@ -237,12 +226,11 @@ func newPriceWithProduct(values map[field.Field]string) (*price.WithProduct, err
 		return nil, fmt.Errorf("failed to parse PricePerUnit: %w", err)
 	}
 
-	priceAttrs := map[string]string{
-		"termType": termTypes[values[field.TermType]],
-	}
-	for col, attr := range columnToPriceAttribute {
+	priceAttrs := map[string]string{}
+
+	for col := range columnPriceToIngest {
 		if values[col] != "" {
-			priceAttrs[attr] = values[col]
+			priceAttrs[col.String()] = values[col]
 		}
 	}
 
@@ -260,9 +248,10 @@ func newPriceWithProduct(values map[field.Field]string) (*price.WithProduct, err
 
 func newProduct(values map[field.Field]string) *product.Product {
 	attributes := make(map[string]string)
-	for col, attr := range columnToAttribute {
+
+	for col := range columnProductToIngest {
 		if values[col] != "" {
-			attributes[attr] = values[col]
+			attributes[col.String()] = values[col]
 		}
 	}
 
